@@ -12,8 +12,8 @@ public class Main
     public static void configWithoutBean()
     {
         /**
-         * Пример конфигурации без использования @Bean аннотации. Конфигурация
-         * только на аннотациях
+         * РџСЂРёРјРµСЂ РєРѕРЅС„РёРіСѓСЂР°С†РёРё Р±РµР· РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ @Bean Р°РЅРЅРѕС‚Р°С†РёРё. РљРѕРЅС„РёРіСѓСЂР°С†РёСЏ
+         * С‚РѕР»СЊРєРѕ РЅР° Р°РЅРЅРѕС‚Р°С†РёСЏС…
          */
         ApplicationContext context = new AnnotationConfigApplicationContext(ConfigWithoutBean.class);
         HelloSayer sayer = (HelloSayer) context.getBean("helloSayer");
@@ -23,7 +23,7 @@ public class Main
     public static void configWithBean()
     {
         /**
-         * Пример конфигурации с использованием @Bean аннотации.
+         * РџСЂРёРјРµСЂ РєРѕРЅС„РёРіСѓСЂР°С†РёРё СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј @Bean Р°РЅРЅРѕС‚Р°С†РёРё.
          */
         ApplicationContext context = new AnnotationConfigApplicationContext(ConfigWithBean.class);
         HelloSayer sayer = context.getBean(HelloSayer.class);

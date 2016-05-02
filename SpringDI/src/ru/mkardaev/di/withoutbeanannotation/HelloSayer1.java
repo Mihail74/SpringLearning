@@ -9,7 +9,7 @@ import ru.mkardaev.di.HelloSayer;
 import ru.mkardaev.di.HelloWordDao;
 
 /**
- * данные аннотации эквивалентны
+ * РґР°РЅРЅС‹Рµ Р°РЅРЅРѕС‚Р°С†РёРё СЌРєРІРёРІР°Р»РµРЅС‚РЅС‹
  * 
  *
  */
@@ -25,10 +25,10 @@ public class HelloSayer1 implements HelloSayer
     }
 
     /**
-     * Т.к. реализации 2, то нужно указать какую реализацию инжектить.
+     * Рў.Рє. СЂРµР°Р»РёР·Р°С†РёРё 2, С‚Рѕ РЅСѓР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ РєР°РєСѓСЋ СЂРµР°Р»РёР·Р°С†РёСЋ РёРЅР¶РµРєС‚РёС‚СЊ.
      * 
-     * @Qualifier и @Named - эквивалентны, т.к. HelloWordDaoImpl1 объявлен
-     *            аннотацией @Component(componentName)
+     * @Qualifier Рё @Named - СЌРєРІРёРІР°Р»РµРЅС‚РЅС‹, С‚.Рє. HelloWordDaoImpl1 РѕР±СЉСЏРІР»РµРЅ
+     *            Р°РЅРЅРѕС‚Р°С†РёРµР№ @Component(componentName)
      */
     @Inject
     @Qualifier("helloDao")
