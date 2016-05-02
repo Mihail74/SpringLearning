@@ -3,6 +3,9 @@
 *.class
 #*******************************************************************
 #eclipse specific
+.metadata
+/targer
+
 .project
 */.project
 
