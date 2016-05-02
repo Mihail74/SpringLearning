@@ -16,4 +16,28 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencies>
+  	<dependency>
+	    <groupId>javax.inject</groupId>
+	    <artifactId>javax.inject</artifactId>
+	    <version>1</version>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>4.3.0.RC1</version>
+    </dependency>
+  </dependencies>
+  
+	<repositories>
+	    <repository>
+	        <id>spring-milestones</id>
+	        <name>Spring Milestones</name>
+	        <url>https://repo.spring.io/libs-milestone</url>
+	        <snapshots>
+	            <enabled>false</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories>
 </project>

@@ -5,6 +5,7 @@
 #eclipse specific
 .metadata
 /targer
+.recommenders
 
 .project
 */.project
