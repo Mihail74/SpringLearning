@@ -17,3 +17,14 @@
 */.classpath
 #*******************************************************************
 *.log
+
+.idea/
+**/target/
+**/.idea/
+**.iml
+nb-configuration.xml
+.metadata/
+**/.settings/
+**.project
+**.classpath
+/target/
