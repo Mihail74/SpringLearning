@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html ng-app="warehouseApp" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <title>Angular example</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <style>
+    body { padding-bottom: 30px; }
+    table th.selected { text-decoration: underline; }
+  </style>
+</head>
+<body class="" ng-controller="warehouseController">
+
+<div class="container">
+  <h1>Angular</h1>
+
+  <div ng-controller="categoriesController" class="categories">
+    <h2>Категории</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Название</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in categories">
+          <td>{{item.id}}</td>
+          <td><input type="text" value="{{item.name}}" ng-model="categories[$index].name"/></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="new-category-form">
+      <label for="new-category-input">Новая категория:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="categoryName" placeholder="Имя для категории" id="new-category-input"/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="addCategory(categoryName)">Добавить</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div ng-controller="goodsController" class="goods">
+    <h2>Товары</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="input-group">
+          <label class="input-group-addon">В категории:</label>
+          <select ng-model="selectedCategory" class="form-control">
+            <option value="">Все</option>
+            <option ng-repeat="item in categories" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-group">
+          <label class="input-group-addon">С названием:</label>
+          <input class="form-control" type="text" ng-model="goodNameFilter" value=""/>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th ng-class="{selected : sortField == 'id'}" ng-click="sortByField('id')">Id</th>
+        <th ng-class="{selected : sortField == 'name'}" ng-click="sortByField('name')">Название</th>
+        <th ng-class="{selected : sortField == 'category'}" ng-click="sortByField('category')">Категория</th>
+        <th ng-class="{selected : sortField == 'price'}" ng-click="sortByField('price')">Цена</th>
+        <th ng-class="{selected : sortField == 'amount'}" ng-click="sortByField('amount')">Количество</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="item in goods | orderBy:sortField:reverse | filter:{category:selectedCategory} | filterByName:goodNameFilter">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{getCategoryName(item.category)}}</td>
+        <td>{{item.price | currency:'RUB '}}</td>
+        <td>{{item.amount}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="new-category-form">
+      <label>Новый товар:</label>
+      <div class="row">
+        <div class="col-sm-3">
+          <label for="new-good-name-input">Название товара:</label>
+          <input type="text" class="form-control" ng-model="goodName" placeholder="Название товара" id="new-good-name-input"/>
+        </div>
+        <div class="col-sm-3">
+          <label for="new-good-category-select">Категория:</label>
+          <select ng-model="goodCategory" id="new-good-category-select" class="form-control">
+            <option disabled="disabled">Выберите категорию</option>
+            <option ng-repeat="item in categories" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          <label for="new-good-price-input">Цена:</label>
+          <input type="number" class="form-control" ng-model="goodPrice" placeholder="Цена" id="new-good-price-input"/>
+        </div>
+        <div class="col-sm-2">
+          <label for="new-good-amount-input">Количество:</label>
+          <input type="number" class="form-control" ng-model="goodAmount" placeholder="Количество" id="new-good-amount-input"/>
+        </div>
+        <div class="col-sm-2">
+          <label style="width: 100%">&nbsp;</label>
+          <button class="btn btn-default" type="button" ng-click="addGood(goodName, goodCategory, goodPrice, goodAmount)">Добавить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/javascript" src="/js/angular.js"></script>
+<script type="text/javascript">
+  var warehouseApp = angular.module("warehouseApp", []);
+
+  warehouseApp.filter("filterByName", function() {
+    return function (objects, name) {
+      if (name) {
+        name = name.toLowerCase();
+        return objects.filter(function (item) {
+          return item.name.toLowerCase().indexOf(name) > -1;
+        });
+      } else {
+        return objects;
+      }
+    };
+  });
+
+  warehouseApp.controller("warehouseController", function ($scope) {
+    $scope.categories = [
+      { id: 1, name: 'Продукты питания' },
+      { id: 2, name: 'Бытовая техника' },
+      { id: 3, name: 'Косметика' },
+      { id: 4, name: 'Услуги' },
+      { id: 5, name: 'Инструменты' },
+    ];
+    $scope.goods = [
+      { id: 1, name: 'Ноутбук', category: 2, price: 25123.45, amount: 10 },
+      { id: 2, name: 'Клавиатура', category: 2, price: 513.18, amount: 11 },
+      { id: 4, name: 'Колбаса', category: 1, price: 450.32, amount: 33 },
+      { id: 5, name: 'Молоток', category: 5, price: 387, amount: 7 },
+      { id: 6, name: 'Дрель', category: 5, price: 4389.1, amount: 2 },
+    ];
+    $scope.getCategoryName = function(id) {
+      for(var i in $scope.categories) {
+        if ($scope.categories[i].id == id) return $scope.categories[i].name;
+      }
+      return "";
+    }
+  });
+
+  warehouseApp.controller("categoriesController", function($scope){
+    $scope.addCategory = function(name){
+      $scope.categories.push({ id: $scope.categories.length + 1, name: name });
+    };
+  });
+
+  warehouseApp.controller("goodsController", function($scope){
+    $scope.addGood = function(name, category, price, amount){
+      $scope.goods.push({ id: $scope.goods.length + 1, name: name, category: category, price: price, amount: amount });
+    };
+    $scope.sortField = 'id';
+    $scope.reverse = false;
+    $scope.sortByField = function(fieldName) {
+      if ($scope.sortField == fieldName) {
+        $scope.reverse = !$scope.reverse;
+      } else {
+        $scope.sortField = fieldName;
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

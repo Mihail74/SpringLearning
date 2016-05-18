@@ -1,0 +1,50 @@
+<div ng-controller="goodsController" class="goods">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Название</th>
+      <th>Категория</th>
+      <th>Цена</th>
+      <th>Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in goods">
+      <td>{{item.id}}</td>
+      <td>{{item.name}}</td>
+      <td>{{getCategoryName(item.category)}}</td>
+      <td>{{item.price | currency:'RUB '}}</td>
+      <td>{{item.amount}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="new-category-form">
+    <label>Новый товар:</label>
+    <div class="row">
+      <div class="col-sm-3">
+        <label for="new-good-name-input">Название товара:</label>
+        <input type="text" class="form-control" ng-model="goodName" placeholder="Название товара" id="new-good-name-input"/>
+      </div>
+      <div class="col-sm-3">
+        <label for="new-good-category-select">Категория:</label>
+        <select ng-model="goodCategory" id="new-good-category-select" class="form-control">
+          <option disabled="disabled">Выберите категорию</option>
+          <option ng-repeat="item in categories" value="{{item.id}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <label for="new-good-price-input">Цена:</label>
+        <input type="number" class="form-control" ng-model="goodPrice" placeholder="Цена" id="new-good-price-input"/>
+      </div>
+      <div class="col-sm-2">
+        <label for="new-good-amount-input">Количество:</label>
+        <input type="number" class="form-control" ng-model="goodAmount" placeholder="Количество" id="new-good-amount-input"/>
+      </div>
+      <div class="col-sm-2">
+        <label style="width: 100%">&nbsp;</label>
+        <button class="btn btn-default" type="button" ng-click="addGood(goodName, goodCategory, goodPrice, goodAmount)">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>

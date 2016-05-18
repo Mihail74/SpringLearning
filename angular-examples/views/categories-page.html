@@ -1,0 +1,25 @@
+<div ng-controller="categoriesController" class="categories">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in categories">
+      <td>{{item.id}}</td>
+      <td><input type="text" value="{{item.name}}" ng-model="categories[$index].name"/></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="new-category-form">
+    <label for="new-category-input">Новая категория:</label>
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="categoryName" placeholder="Имя для категории" id="new-category-input"/>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="addCategory(categoryName)">Добавить</button>
+        </span>
+    </div>
+  </div>
+</div>
